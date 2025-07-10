@@ -1,0 +1,19 @@
+{
+	"name": "xopen",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"charliermarsh.ruff",
+				"ms-python.mypy-type-checker",
+				"ms-python.black-formatter",
+				"KevinRose.vsc-python-indent"
+			]
+		},
+		"settings": {
+			"python.defaultInterpreterPath": ".venv/bin/python"
+		}
+	}
+}
