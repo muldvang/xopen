@@ -1,0 +1,39 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "extension": {
+                "type": "string"
+            },
+            "mime": {
+                "type": "string"
+            },
+            "mode": {
+                "type": "object",
+                "propertyNames": {
+                    "type": "string"
+                },
+                "additionalProperties": {
+                    "type": "string"
+                }
+            }
+        },
+        "required": [
+            "mode"
+        ],
+        "oneOf": [
+            {
+                "required": [
+                    "extension"
+                ]
+            },
+            {
+                "required": [
+                    "mime"
+                ]
+            }
+        ],
+        "additionalProperties": false
+    }
+}

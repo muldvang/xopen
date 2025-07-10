@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import json
 import os
 import subprocess
 import sys
@@ -8,6 +9,7 @@ from pathlib import Path
 
 import magic
 import yaml
+from jsonschema import ValidationError, validate
 
 # TODO run black and ruff with poetry
 # TODO write automated tests
@@ -31,8 +33,16 @@ def load_config():
     except IndexError:
         print("Configuration file not found.")
         sys.exit(1)
-    with open(config_path) as file:
-        return yaml.safe_load(file)
+    with open(config_path) as f:
+        config = yaml.safe_load(f)
+    with open(os.path.join(os.path.dirname(__file__), "config_schema.json")) as f:
+        schema = json.load(f)
+    try:
+        validate(instance=config, schema=schema)
+        return config
+    except ValidationError as e:
+        print("Invalid configuration file format:", e.message)
+        exit(1)
 
 
 def get_mime_type(file_path):
