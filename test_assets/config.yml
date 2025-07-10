@@ -1,0 +1,12 @@
+- extension: org
+  mode:
+    view: emacs
+    edit: emacs
+- mime: text/plain
+  mode:
+    view: cat
+    edit: code
+- mime: image/*
+  mode:
+    view: imv
+    edit: gimp
