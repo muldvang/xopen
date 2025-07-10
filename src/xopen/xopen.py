@@ -63,11 +63,11 @@ def get_application(config, mode, mime_type, filepath):
             or ("extension" in entry and filepath.endswith(entry["extension"]))
         )
     )
-    first_relevant_config = next(relevant_configs)
-    if first_relevant_config:
+    try:
+        first_relevant_config = next(relevant_configs)
         return first_relevant_config["mode"][mode]
-
-    return None
+    except StopIteration:
+        return None
 
 
 def main():
