@@ -46,14 +46,13 @@ def load_config():
 
 
 def get_mime_type(file_path):
+    if os.path.isdir(file_path):
+        return "inode/directory"
     mime = magic.Magic(mime=True)
     return mime.from_file(file_path)
 
 
 def get_application(config, mode, mime_type, filepath):
-    print(config)
-    print(mime_type)
-    print(mode)
     relevant_configs = (
         entry
         for entry in config
