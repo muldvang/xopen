@@ -89,9 +89,9 @@ def main():
         sys.exit(1)
 
     try:
-        subprocess.run([app, args.filepath])
+        subprocess.run(["bash", "-c", f"{app} {args.filepath}"])
     except FileNotFoundError:
-        print(f"Command '{app}' not found in path {os.getenv("PATH")}")
+        print(f"Command 'bash' not found in path {os.getenv("PATH")}")
         sys.exit(1)
 
 
