@@ -2,7 +2,7 @@
   mode:
     view: emacs
     edit: emacs
-- mime: text/plain
+- mime: text/*
   mode:
     view: cat
     edit: code
