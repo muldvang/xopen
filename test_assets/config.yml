@@ -4,9 +4,13 @@
     edit: emacs
 - mime: text/*
   mode:
-    view: cat
+    view: cat 
     edit: code
 - mime: image/*
   mode:
     view: imv
     edit: gimp
+- mime: inode/directory
+  mode:
+    view: ls -l {} && echo success
+    edit: ls -l

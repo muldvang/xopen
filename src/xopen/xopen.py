@@ -61,7 +61,7 @@ def mimetype_matches(config_mime: str, actual_mime: str) -> bool:
     return config_mime == actual_mime
 
 
-def get_application(config, mode, mime_type, filepath):
+def get_application(config, mode, mime_type, filepath) -> str | None:
     relevant_configs = (
         entry
         for entry in config
@@ -96,8 +96,14 @@ def main():
         )
         sys.exit(1)
 
+    quoted_filepath = f"'{args.filepath}'"
+    if "{}" in app:
+        command = app.replace("{}", quoted_filepath)
+    else:
+        command = f"{app} {quoted_filepath}"
+
     try:
-        subprocess.run(["bash", "-c", f"{app} '{args.filepath}'"])
+        subprocess.run(["bash", "-c", command])
     except FileNotFoundError:
         print(f"Command 'bash' not found in path {os.getenv("PATH")}")
         sys.exit(1)
