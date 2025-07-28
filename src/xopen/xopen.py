@@ -52,6 +52,12 @@ def get_mime_type(file_path):
     return mime.from_file(file_path)
 
 
+def mimetypes_matches(config_mimes: list[str], actual_mime: str) -> bool:
+    return any(
+        mimetype_matches(config_mime, actual_mime) for config_mime in config_mimes
+    )
+
+
 def mimetype_matches(config_mime: str, actual_mime: str) -> bool:
     if config_mime.endswith("/*"):
         # If configuration has a wildcard
@@ -61,14 +67,28 @@ def mimetype_matches(config_mime: str, actual_mime: str) -> bool:
     return config_mime == actual_mime
 
 
+def filetypes_matches(config_filetypes: list[str], actual_filepath: str) -> bool:
+    return any(
+        filetype_matches(config_filetype, actual_filepath)
+        for config_filetype in config_filetypes
+    )
+
+
+def filetype_matches(config_filetype: str, actual_filepath: str) -> bool:
+    return actual_filepath.endswith(config_filetype)
+
+
 def get_application(config, mode, mime_type, filepath) -> str | None:
     relevant_configs = (
         entry
         for entry in config
         if mode in entry["mode"]
         and (
-            ("mime" in entry and mimetype_matches(entry["mime"], mime_type))
-            or ("extension" in entry and filepath.endswith(entry["extension"]))
+            ("mimetypes" in entry and mimetypes_matches(entry["mimetypes"], mime_type))
+            or (
+                "extensions" in entry
+                and filetypes_matches(entry["extensions"], filepath)
+            )
         )
     )
     try:

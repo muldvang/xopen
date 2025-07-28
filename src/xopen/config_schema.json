@@ -3,11 +3,17 @@
     "items": {
         "type": "object",
         "properties": {
-            "extension": {
-                "type": "string"
+            "extensions": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
             },
-            "mime": {
-                "type": "string"
+            "mimetypes": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
             },
             "mode": {
                 "type": "object",
@@ -25,12 +31,12 @@
         "oneOf": [
             {
                 "required": [
-                    "extension"
+                    "extensions"
                 ]
             },
             {
                 "required": [
-                    "mime"
+                    "mimetypes"
                 ]
             }
         ],

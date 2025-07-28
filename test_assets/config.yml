@@ -1,16 +1,24 @@
-- extension: org
+- extensions:
+  - org
   mode:
     view: emacs
     edit: emacs
-- mime: text/*
+
+- mimetypes:
+  - text/csv
+  - text/plain
   mode:
     view: cat 
     edit: code
-- mime: image/*
+
+- mimetypes:
+  - image/*
   mode:
     view: imv
     edit: gimp
-- mime: inode/directory
+
+- mimetypes:
+  - inode/directory
   mode:
     view: ls -l {} && echo success
     edit: ls -l
